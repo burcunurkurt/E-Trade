@@ -1,4 +1,5 @@
 ﻿@model ProductListViewModel
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,10 +18,15 @@
                     <td>@product.ProductName</td>
                     <td>@product.UnitPrice</td>
                     <td>@product.UnitsInStock</td>
+                    <td><a class="btn btn-xs btn-success" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId">add to cart</a></td>
                 </tr>
 
             }
 
         </table>
 
-<h1>Hello World!</h1>
+<product-list-pager 
+current-category="@Model.CurrentCategory"
+current-page="@Model.CurrentPage"
+page-count="@Model.PageCount"
+page-size="@Model.PageSize"></product-list-pager>

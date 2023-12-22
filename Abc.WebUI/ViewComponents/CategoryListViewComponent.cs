@@ -2,6 +2,7 @@
 using Abc.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using System;
 
 namespace Abc.WebUI.ViewComponents
 {
@@ -17,7 +18,8 @@ namespace Abc.WebUI.ViewComponents
         {
             var model = new CategoryListViewModel
             {
-                Categories = _categoryService.GetAll()
+                Categories = _categoryService.GetAll(),
+                CurrentCategory=Convert.ToInt32(HttpContext.Request.Query["category"])
             };
             return View(model);
         }

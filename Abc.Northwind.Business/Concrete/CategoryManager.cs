@@ -18,7 +18,6 @@ namespace Abc.Northwind.Business.Concrete
         public List<Category> GetAll()
         {
             return _categoryDal.GetList();
-            //deneme
         }
     }
 }

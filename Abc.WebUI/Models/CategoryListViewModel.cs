@@ -8,5 +8,6 @@ namespace Abc.WebUI.Models
 
     {
         public List<Category> Categories { get; internal set; }
+        public int CurrentCategory { get; internal set; }
     }
 }
