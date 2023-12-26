@@ -2,10 +2,13 @@ using Abc.Northwind.Business.Abstract;
 using Abc.Northwind.Business.Concrete;
 using Abc.Northwind.DataAccess.Abstract;
 using Abc.Northwind.DataAccess.Concrete.EntityFramework;
+using Abc.WebUI.Entities;
 using Abc.WebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +34,14 @@ namespace Abc.WebUI
             services.AddScoped<ICategoryDal, EfCategoryDal>();
             services.AddSingleton<ICartSessionService,CartSessionService>();
             services.AddSingleton<ICartService, CartService>();
+            services.AddDbContext<CustomIdentityDbContext>
+                (options =>
+                {
+                    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=true");
+                });
+            services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
+                .AddEntityFrameworkStores<CustomIdentityDbContext>()
+                .AddDefaultTokenProviders();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddDistributedMemoryCache();
@@ -45,11 +56,14 @@ namespace Abc.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseFileServer(); 
+            app.UseFileServer();
             //app.UseNodeModules
-app.UseSession();
+            app.UseAuthentication();
+              
+            app.UseSession();
             app.UseRouting();
-
+            
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -11,7 +11,7 @@ namespace Abc.Northwind.DataAccess.Concrete.EntityFramework
     {
         public void Delete(int productId)
         {
-            throw new NotImplementedException();
+
         }
 
         public void Deneme()

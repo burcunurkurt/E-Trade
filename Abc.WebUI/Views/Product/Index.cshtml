@@ -6,10 +6,12 @@
 @{
     Layout = "~/Views/_Layout.cshtml"; 
 }
+<div> 
 <table class="table embed-responsive">
             <tr><td>Product Name</td>
                 <td>Unit Price</td>
                 <td>Units In Stock</td>
+                <td></td>
 
             </tr>
             @foreach(var product in Model.Products)
@@ -24,7 +26,7 @@
             }
 
         </table>
-
+</div>
 <product-list-pager 
 current-category="@Model.CurrentCategory"
 current-page="@Model.CurrentPage"
